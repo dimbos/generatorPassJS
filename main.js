@@ -52,7 +52,7 @@ function generatePass() {
 
     let passLength = parseInt(range.value);
 
-    for(let i = 1; i < passLength; i++){
+    for(let i = 0; i < passLength; i++){
         pass += result[randomInteger(0, result.length - 2)];
     }
 
