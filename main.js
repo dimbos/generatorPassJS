@@ -1,7 +1,9 @@
 let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 let arr3 = ['a', 'b', 'c', 'd', 'e', 'f','g','h','i','j','k','l', 'm', 'n','p','q','r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 let arr4 = ['A', 'B', 'C', 'D', 'E','F', 'G' ,'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P',  'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'z'];
-let arr5 = ['!', '@', '#', '$', '%', '^', '&', '?', '*', '(', ')', '+', '-', '/', '=', '>', '<'];
+let arr5 = ['!', '@', '#', '$', '%', '^', '&', '?', '*', '(', ')', '+', '-', '/', '=',];
+
+
 
 
 
@@ -54,7 +56,7 @@ function generatePass() {
         pass += result[randomInteger(0, result.length - 2)];
     }
 
-    document.querySelector('#out').innerHTML += 'p' + pass + '</p>';
+    document.querySelector('#out').innerHTML += '<p class="pass">' + pass + '</p>' + '<button type="button" class="btn btn-dark clipboard" id="generator">В буфер</button>';
     }
 
     //для выбора слюучайного занчения
@@ -65,9 +67,30 @@ function generatePass() {
     }
 
      //console.log(result);
-     
 
-   
+     let copyBtn = document.querySelectorAll('.clipboard');
+    let labelPass = document.querySelectorAll('.pass');
+
+
+
+    for(let i = 0; i < copyBtn.length; i++){
+        copyBtn[i].addEventListener('click',  function() {
+            window.getSelection().removeAllRanges();
+            //выделяем тот код, который копируем в буфер
+            var range = document.createRange();  
+            range.selectNode(labelPass[i]);  
+            window.getSelection().addRange(range);
+
+            //копируем в буфер
+            try { 
+                document.execCommand('copy'); 
+            } catch(err) { 
+                console.log('Can`t copy, boss'); 
+            }
+
+        
+        });
+}
     
 }
 
