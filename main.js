@@ -56,7 +56,7 @@ function generatePass() {
         pass += result[randomInteger(0, result.length - 2)];
     }
 
-    document.querySelector('#out').innerHTML += '<p class="pass">' + pass + '</p>' + '<button type="button" class="btn btn-dark clipboard" id="generator">В буфер</button>';
+    document.querySelector('#out').innerHTML += '<p class="pass">' + pass + '</p>' + '<button type="button" class="btn btn-dark clipboard" id="generator">Скопировать</button>';
     }
 
     //для выбора слюучайного занчения
@@ -74,20 +74,17 @@ function generatePass() {
 
 
     for(let i = 0; i < copyBtn.length; i++){
-        copyBtn[i].addEventListener('click',  function() {
+        copyBtn[i].addEventListener('click',  async function() {
             window.getSelection().removeAllRanges();
             //выделяем тот код, который копируем в буфер
-            var range = document.createRange();  
+            let range = document.createRange();  
             range.selectNode(labelPass[i]);  
             window.getSelection().addRange(range);
-
-            //копируем в буфер
-            try { 
-                document.execCommand('copy'); 
-            } catch(err) { 
-                console.log('Can`t copy, boss'); 
-            }
-
+            try {
+                await navigator.clipboard.writeText(labelPass[i].innerText)
+              } catch (err) {
+                console.error('Не удалось скопировать: ', err);
+              }
         
         });
 }
